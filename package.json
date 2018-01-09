@@ -1,0 +1,23 @@
+{
+  "name": "pretty-html",
+  "version": "1.0.0",
+  "description": "Prettier for HTML",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robcrocombe/pretty-html.git"
+  },
+  "author": "robcrocombe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robcrocombe/pretty-html/issues"
+  },
+  "homepage": "https://github.com/robcrocombe/pretty-html#readme",
+  "dependencies": {
+    "htmlparser": "^1.7.7"
+  }
+}
