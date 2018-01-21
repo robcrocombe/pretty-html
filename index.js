@@ -1,4 +1,5 @@
 const util = require('util');
+const fs = require('fs');
 const htmlparser = require('htmlparser');
 const rawHtml = require('./test');
 
@@ -23,33 +24,35 @@ const LINE_LENGTH = 40;
 let output = '';
 
 parse(handler.dom[0], 0);
-console.log(output);
+
+fs.writeFile('output.html', output, (err) => {
+  if (err) throw err;
+  console.log('Done');
+});
 
 function parse(node, indent) {
   switch(node.type) {
     case 'tag':
       insert(`<${node.name}`, indent);
       if (node.attribs) {
+        const attrCount = Object.keys(node.attribs).length;
+
         for (const k in node.attribs) {
-          if (node.raw.length > LINE_LENGTH) {
+          if (node.raw.length > LINE_LENGTH && attrCount > 1) {
             insert('\n');
             insert(`${k}="${node.attribs[k]}"`, indent + INDENTATION);
           } else {
             insert(`${k}="${node.attribs[k]}"`, 1);
           }
         }
-        if (node.raw.length > LINE_LENGTH) {
-          insert('\n');
-          insert('>\n', indent);
-        } else {
-          insert('>\n', indent);
-        }
-      } else {
-        insert('>\n');
       }
+      insert('>\n');
       break;
     case 'text':
-      insert(node.data, indent);
+      insert(`${node.data.trim()}\n`, indent);
+      break;
+    case 'comment':
+      insert(`<!-- ${node.data.trim()} -->\n`, indent);
       break;
   }
 
@@ -63,8 +66,10 @@ function parse(node, indent) {
 
   switch(node.type) {
     case 'tag':
-      insert('\n');
-      insert(`</${node.name}>`, indent);
+      // insert('\n');
+      if (node.name !== 'input') {
+        insert(`</${node.name}>\n`, indent);
+      }
       break;
   }
 }

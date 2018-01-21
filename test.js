@@ -1,11 +1,8 @@
- // module.exports = `<div class="faux-tabs mx-auto my1">
- //      <div class="faux-tab"
- //           ng-repeat="(key, value) in $ctrl.searchTypes"
- //           ng-class="{ 'active': key === $ctrl.searchType }"
- //           ng-click="$ctrl.switchSearchType(key)">
- //        <span>{{ ::value.name }}</span>
- //      </div>
- //    </div>`;
+// module.exports = `<div><span>Min:</span>
+// <input type="number" class="field" min="{{ $ctrl.min }}" max="{{ $ctrl.max }}" step="{{ $ctrl.float === '' ? '0.01' : '1' }}" ng-change="$ctrl.updateFilter">
+// <span class="ml1">Max:</span>
+// <input type="number" class="field" min="{{ $ctrl.min }}" max="{{ $ctrl.max }}" step="{{ $ctrl.float === '' ? '0.01' : '1' }}" ng-change="$ctrl.updateFilter">
+// </div>`;
 
 module.exports = `<div class="flex flex-auto flex-column overflow-hidden" style="height: 100%">
 
