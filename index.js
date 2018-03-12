@@ -33,12 +33,14 @@ fs.writeFile('output.html', output, err => {
 });
 
 function parse(node, indent) {
+  // A tag with either no children, or one child with no spaces
   const simpleNode =
     node.type === 'tag' &&
-    node.children &&
-    node.children.length === 1 &&
-    node.children[0].type === 'text' &&
-    !node.children[0].data.trim().includes(' ');
+    ((node.children &&
+      node.children.length === 1 &&
+      node.children[0].type === 'text' &&
+      !node.children[0].data.trim().includes(' ')) ||
+      !node.children);
 
   switch (node.type) {
     case 'tag':
@@ -56,7 +58,7 @@ function parse(node, indent) {
         }
       }
 
-      simpleNode ? insert(`>${node.children[0].data.trim()}`) : insert('>\n');
+      simpleNode ? insert(`>${node.children ? node.children[0].data.trim() : ''}`) : insert('>\n');
       break;
     case 'text':
       if (/^\n\n\s*/.test(node.data)) {

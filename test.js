@@ -9,6 +9,8 @@ module.exports = `<div class="flex flex-auto flex-column overflow-hidden" style=
   <!-- Lookup search header -->
   <header class="lookup-search-header bg-white flex flex-column px3">
 
+
+
     <!-- Search tabs -->
     <div class="faux-tabs mx-auto my1">
       <div class="faux-tab"
