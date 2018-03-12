@@ -1,0 +1,97 @@
+<div class="flex flex-auto flex-column overflow-hidden" style="height: 100%">
+
+  <!-- Lookup search header -->
+  <header class="lookup-search-header bg-white flex flex-column px3">
+
+
+
+    <!-- Search tabs -->
+    <div class="faux-tabs mx-auto my1">
+      <div class="faux-tab"
+           ng-repeat="(key, value) in $ctrl.searchTypes"
+           ng-class="{ 'active': key === $ctrl.searchType }"
+           ng-click="$ctrl.switchSearchType(key)">
+        <span>{{ ::value.name }}</span>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="col-12 mb1">
+      <!-- Field -->
+      <form class="large-search-field-form relative" ng-submit="$ctrl.search($ctrl.searchType, $ctrl.searchQuery, true)">
+          <input ng-repeat="(key, value) in $ctrl.searchTypes"
+                 ng-if="$ctrl.searchType === key"
+                 type="{{ value.type }}"
+                 class="silencer block col-12 field large no-transition"
+                 ng-model="$ctrl.searchQuery"
+                 ng-attr-placeholder="{{ value.placeholder }}">
+
+        <!-- Change this .network-search-input-button class to something more generic -->
+        <button type="submit" class="network-search-input-button">
+          <i class="material-icons">
+            search
+          </i>
+        </button>
+      </form>
+    </div>
+
+  </header>
+
+  <!-- Lookup view -->
+  <div class="flex flex-auto" ng-switch="$ctrl.pageState">
+
+    <!-- state === 'loading' -->
+    <div class="flex flex-center flex-auto" ng-switch-when="loading">
+      <div class="col-4 mx-auto mb2">
+        <div class="flex flex-column">
+          <round-spinner class="mx-auto mb1"></round-spinner>
+          <span class="label-text primary block center mx-auto">Searching over Ravelin lookup...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- state === 'empty' -->
+    <div class="flex flex-center flex-auto" ng-switch-when="empty">
+      <div class="col-4 mx-auto mb2">
+        <span class="heading-text primary block center mb1">No match containing “{{ ::$ctrl.searchQuery }}”</span>
+        <span class="description-text primary muted block center">We couldn't find any fraud associated with the {{ ::$ctrl.searchType }} "{{ ::$ctrl.searchQuery }}" in our database.</span>
+      </div>
+    </div>
+
+    <!-- state === 'data' -->
+    <div class="flex flex-auto overflow-auto" ng-switch-when="data">
+      <lookup-search-result
+        class="mx-auto"
+        type="::$ctrl.searchType"
+        query="::$ctrl.searchQuery"
+        has-chargebacks="$ctrl.result.hasChargebacks"
+        reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+      </lookup-search-result>
+    </div>
+
+    <!-- state === 'error' -->
+    <div class="flex flex-center flex-auto" ng-switch-when="error">
+      <div class="col-4 mx-auto mb2">
+        <span class="heading-text primary block center mb1">Oops! Something went wrong.</span>
+        <span class="description-text primary muted block center">We're sorry. An error occurred and we were unable to complete the search. Please try again.</span>
+      </div>
+    </div>
+
+    <!-- state === 'formaterror' -->
+    <div class="flex flex-center flex-auto" ng-switch-when="formaterror">
+      <div class="col-4 mx-auto mb2">
+        <span class="heading-text primary block center mb1">That number doesn't look right...</span>
+        <span class="description-text primary muted block center">Make sure the phone
+            number you are searching for is <a href="https://ravelin.zendesk.com/hc/en-us/articles/115002238771#contents-anchor-2" target="_blank">formatted correctly</a> and includes a country calling code (e.g., +44).</span>
+      </div>
+    </div>
+
+    <!-- state === undefined -->
+    <div class="flex flex-center flex-auto" ng-switch-default>
+      <div class="col-4 mx-auto mb2">
+        <span class="heading-text primary block center mb1">Discover known fraudsters</span>
+        <span class="description-text primary muted block center">Enter an email, phone number or IP address in the search box above to discover a known fraudster.</span>
+      </div>
+    </div>
+  </div>
+</div>
