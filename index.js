@@ -3,16 +3,18 @@ const fs = require('fs');
 const htmlparser = require('htmlparser');
 const rawHtml = require('./test');
 
-const handler = new htmlparser.DefaultHandler((error, dom) => {
-  if (error) {
-    console.error(error);
+const handler = new htmlparser.DefaultHandler(
+  (error, dom) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log('Success');
+    }
+  },
+  {
+    ignoreWhitespace: false,
   }
-  else {
-    console.log('Success');
-  }
-}, {
-  ignoreWhitespace: true,
-});
+);
 
 const parser = new htmlparser.Parser(handler);
 parser.parseComplete(rawHtml);
@@ -25,13 +27,20 @@ let output = '';
 
 parse(handler.dom[0], 0);
 
-fs.writeFile('output.html', output, (err) => {
+fs.writeFile('output.html', output, err => {
   if (err) throw err;
-  console.log('Done');
+  console.log('✨  Done!');
 });
 
 function parse(node, indent) {
-  switch(node.type) {
+  const simpleNode =
+    node.type === 'tag' &&
+    node.children &&
+    node.children.length === 1 &&
+    node.children[0].type === 'text' &&
+    !node.children[0].data.trim().includes(' ');
+
+  switch (node.type) {
     case 'tag':
       insert(`<${node.name}`, indent);
       if (node.attribs) {
@@ -46,17 +55,25 @@ function parse(node, indent) {
           }
         }
       }
-      insert('>\n');
+
+      simpleNode ? insert(`>${node.children[0].data.trim()}`) : insert('>\n');
       break;
     case 'text':
-      insert(`${node.data.trim()}\n`, indent);
+      if (/^\n\n\s*/.test(node.data)) {
+        insert('\n');
+      } else if (/^\n\s*/.test(node.data)) {
+        // Ignore single newlines
+      } else {
+        const text = node.data.trim().replace(/(\n\s\s+)/g, ' ');
+        insert(`${text}\n`, indent);
+      }
       break;
     case 'comment':
       insert(`<!-- ${node.data.trim()} -->\n`, indent);
       break;
   }
 
-  if (node.children) {
+  if (!simpleNode && node.children) {
     const newIndent = indent + INDENTATION;
 
     for (let i = 0; i < node.children.length; ++i) {
@@ -64,11 +81,10 @@ function parse(node, indent) {
     }
   }
 
-  switch(node.type) {
+  switch (node.type) {
     case 'tag':
-      // insert('\n');
       if (node.name !== 'input') {
-        insert(`</${node.name}>\n`, indent);
+        insert(`</${node.name}>\n`, simpleNode ? 0 : indent);
       }
       break;
   }

@@ -32,7 +32,9 @@ module.exports = `<div class="flex flex-auto flex-column overflow-hidden" style=
 
         <!-- Change this .network-search-input-button class to something more generic -->
         <button type="submit" class="network-search-input-button">
-          <i class="material-icons">search</i>
+          <i class="material-icons">
+            search
+          </i>
         </button>
       </form>
     </div>
@@ -83,7 +85,8 @@ module.exports = `<div class="flex flex-auto flex-column overflow-hidden" style=
     <div class="flex flex-center flex-auto" ng-switch-when="formaterror">
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">That number doesn't look right...</span>
-        <span class="description-text primary muted block center">Make sure the phone number you are searching for is <a href="https://ravelin.zendesk.com/hc/en-us/articles/115002238771#contents-anchor-2" target="_blank">formatted correctly</a> and includes a country calling code (e.g., +44).</span>
+        <span class="description-text primary muted block center">Make sure the phone
+            number you are searching for is <a href="https://ravelin.zendesk.com/hc/en-us/articles/115002238771#contents-anchor-2" target="_blank">formatted correctly</a> and includes a country calling code (e.g., +44).</span>
       </div>
     </div>
 
