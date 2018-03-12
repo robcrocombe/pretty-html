@@ -39,7 +39,7 @@ function parse(node, indent) {
     ((node.children &&
       node.children.length === 1 &&
       node.children[0].type === 'text' &&
-      !node.children[0].data.trim().includes(' ')) ||
+      node.children[0].data.trim().length <= 25) ||
       !node.children);
 
   switch (node.type) {
