@@ -5,7 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run prettier -- -l '**/*.js' || exit 0",
+    "prettier": "prettier --write",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "npm run prettier",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -17,7 +26,16 @@
     "url": "https://github.com/robcrocombe/pretty-html/issues"
   },
   "homepage": "https://github.com/robcrocombe/pretty-html#readme",
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
   "dependencies": {
-    "htmlparser": "^1.7.7"
+    "htmlparser": "1.7.7"
+  },
+  "devDependencies": {
+    "lint-staged": "7.0.0",
+    "prettier": "1.11.1"
   }
 }
