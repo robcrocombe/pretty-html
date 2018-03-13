@@ -1,8 +1,15 @@
 const util = require('util');
 const htmlparser = require('htmlparser');
-
+const voidElements = require('./printer.config');
 const INDENTATION = 2;
 const LINE_LENGTH = 40;
+
+htmlparser.DefaultHandler._emptyTags = {
+  ...htmlparser.DefaultHandler._emptyTags,
+  source: 1,
+  track: 1,
+  wbr: 1,
+};
 
 // console.log(util.inspect(handler.dom, false, null));
 
@@ -86,8 +93,10 @@ class Printer {
 
     switch (node.type) {
       case 'tag':
-        if (node.name !== 'input') {
+        if (voidElements.indexOf(node.name) === -1) {
           this.insert(`</${node.name}>\n`, simpleNode ? 0 : indent);
+        } else {
+          this.insert(`\n`, 0);
         }
         break;
     }
