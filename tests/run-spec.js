@@ -1,7 +1,7 @@
 const fs = require('fs');
-const Generator = require('./../src/generator');
+const Printer = require('./../src/printer');
 
-const prettyHtml = new Generator();
+const prettyHtml = new Printer();
 const SOURCE_SEPARATOR = '------------SOURCE PREVIEW------------\n';
 const OUTPUT_SEPARATOR = '\n------------OUTPUT PREVIEW------------\n\n';
 

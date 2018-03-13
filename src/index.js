@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('globby');
-const Generator = require('./generator');
+const Printer = require('./printer');
 
 class PrettyHtml {
   async run(input, overwrite) {
@@ -13,7 +13,7 @@ class PrettyHtml {
 
         console.log(path.relative(__dirname, paths[i]));
 
-        const output = new Generator().run(contents);
+        const output = new Printer().run(contents);
 
         if (overwrite) {
           this.writeFile(output, paths[i]);
@@ -22,8 +22,10 @@ class PrettyHtml {
     }
   }
 
-  writeFile(output, path) {
-    fs.writeFile(path, output, err => {
+  writeFile(output, inPath) {
+    const p = path.resolve(path.dirname(inPath), 'out_' + path.basename(inPath));
+
+    fs.writeFile(p, output, err => {
       if (err) throw err;
       console.log('✨  Done!');
     });

@@ -224,7 +224,7 @@ exports[`all.html: all.html 1`] = `
     <!-- state === undefined -->
     <div
       class="flex flex-center flex-auto"
-      ng-switch-default="ng-switch-default">
+      ng-switch-default>
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">Discover known fraudsters</span>
         <span class="description-text primary muted block center">

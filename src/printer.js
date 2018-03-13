@@ -6,7 +6,7 @@ const LINE_LENGTH = 40;
 
 // console.log(util.inspect(handler.dom, false, null));
 
-class Generator {
+class Printer {
   constructor() {
     this.output = '';
   }
@@ -46,11 +46,13 @@ class Generator {
           const attrCount = Object.keys(node.attribs).length;
 
           for (const k in node.attribs) {
+            const attrib = this.formatAttribute(k, node.attribs);
+
             if (node.raw.length > LINE_LENGTH && attrCount > 1) {
               this.insert('\n');
-              this.insert(`${k}="${node.attribs[k]}"`, indent + INDENTATION);
+              this.insert(attrib, indent + INDENTATION);
             } else {
-              this.insert(`${k}="${node.attribs[k]}"`, 1);
+              this.insert(attrib, 1);
             }
           }
         }
@@ -91,9 +93,13 @@ class Generator {
     }
   }
 
+  formatAttribute(key, attribs) {
+    return key === attribs[key] ? key : `${key}="${attribs[key]}"`;
+  }
+
   insert(text, indent = 0) {
     this.output += ' '.repeat(indent) + text;
   }
 }
 
-module.exports = Generator;
+module.exports = Printer;
