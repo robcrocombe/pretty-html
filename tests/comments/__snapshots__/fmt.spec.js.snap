@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comments.html: comments.html 1`] = `
+------------SOURCE PREVIEW------------
+<!-- Starting with a comment -->
+<div>
+  <!-- Another -->
+  <p><a href="/home">Home</a></p>
+
+  <!-- Separator comment -->
+  <p><a href="/about">About</a></p>
+
+  <!-- <div class="flex flex-auto overflow-auto" ng-switch-when="data">
+    <round-spinner class="mx-auto mb1">
+    </round-spinner>
+    <lookup-search-result class="mx-auto" type="::$ctrl.searchType"
+      query="::$ctrl.searchQuery"
+      has-chargebacks="$ctrl.result.hasChargebacks"
+      reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+    </lookup-search-result>
+  </div> -->
+  <p><a href="/news">News</a></p>
+</div>
+<!-- Ending with a comment -->
+
+------------OUTPUT PREVIEW------------
+
+<!-- Starting with a comment -->
+<div>
+  <!-- Another -->
+  <p>
+    <a href="/home">Home</a>
+  </p>
+
+  <!-- Separator comment -->
+  <p>
+    <a href="/about">About</a>
+  </p>
+
+  <!-- <div class="flex flex-auto overflow-auto" ng-switch-when="data">
+    <round-spinner class="mx-auto mb1">
+    </round-spinner>
+    <lookup-search-result class="mx-auto" type="::$ctrl.searchType"
+      query="::$ctrl.searchQuery"
+      has-chargebacks="$ctrl.result.hasChargebacks"
+      reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+    </lookup-search-result>
+  </div> -->
+  <p>
+    <a href="/news">News</a>
+  </p>
+</div>
+<!-- Ending with a comment -->
+
+`;

@@ -1,23 +1,21 @@
-<div>
-  <div class="faux-tab"></div>
-  <div class="faux-tab"></div>
-  <div class="faux-tab"></div>
+<div class="faux-tab"></div>
+<div class="faux-tab"></div>
+<div class="faux-tab"></div>
 
 
 
 
-  <div class="faux-tab"></div>
-  <div class="faux-tab"></div>
+<div class="faux-tab"></div>
+<div class="faux-tab"></div>
 
-  <!-- Comment -->
-  <div class="faux-tab"></div>
-  <div class="faux-tab"></div>
+<!-- Comment -->
+<div class="faux-tab"></div>
+<div class="faux-tab"></div>
 
-  <div class="faux-tab"
-       ng-repeat="(key, value) in $ctrl.searchTypes"
+<div class="faux-tab"
+     ng-repeat="(key, value) in $ctrl.searchTypes"
 
-       ng-class="{ 'active': key === $ctrl.searchType }"
+     ng-class="{ 'active': key === $ctrl.searchType }"
 
-       ng-click="$ctrl.switchSearchType(key)">
-  </div>
+     ng-click="$ctrl.switchSearchType(key)">
 </div>

@@ -31,7 +31,9 @@ class Printer {
     const parser = new htmlparser.Parser(handler);
     parser.parseComplete(rawHtml);
 
-    this.parse(handler.dom[0], 0);
+    for (let i = 0; i < handler.dom.length; ++i) {
+      this.parse(handler.dom[i], 0);
+    }
 
     return this.output;
   }
