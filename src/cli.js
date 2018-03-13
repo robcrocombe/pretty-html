@@ -6,8 +6,9 @@ const PrettyHtml = require('./');
 program
   .version(version, '-v, --version')
   .arguments('<input>')
-  .action(input => {
-    new PrettyHtml().run(input);
+  .option('-w, --write', 'rewrites all processed files in place')
+  .action((input, options) => {
+    new PrettyHtml().run(input, options.write);
   });
 
 program.parse(process.argv);

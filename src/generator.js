@@ -1,6 +1,4 @@
 const util = require('util');
-const fs = require('fs');
-const path = require('path');
 const htmlparser = require('htmlparser');
 
 const INDENTATION = 2;
@@ -13,7 +11,7 @@ class Generator {
     this.output = '';
   }
 
-  run(inPath, rawHtml) {
+  run(rawHtml) {
     const handler = new htmlparser.DefaultHandler(
       (err, dom) => {
         if (err) throw err;
@@ -28,12 +26,7 @@ class Generator {
 
     this.parse(handler.dom[0], 0);
 
-    const outPath = path.resolve(path.dirname(inPath), 'out_' + path.basename(inPath));
-
-    fs.writeFile(outPath, this.output, err => {
-      if (err) throw err;
-      console.log('✨  Done!');
-    });
+    return this.output;
   }
 
   parse(node, indent) {
