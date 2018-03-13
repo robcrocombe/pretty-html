@@ -11,8 +11,6 @@ htmlparser.DefaultHandler._emptyTags = {
   wbr: 1,
 };
 
-// console.log(util.inspect(handler.dom, false, null));
-
 class Printer {
   constructor() {
     this.output = '';
@@ -30,6 +28,8 @@ class Printer {
 
     const parser = new htmlparser.Parser(handler);
     parser.parseComplete(rawHtml);
+
+    // console.log(util.inspect(handler.dom, false, null));
 
     for (let i = 0; i < handler.dom.length; ++i) {
       this.parse(handler.dom[i], 0);
@@ -77,7 +77,9 @@ class Printer {
           // Ignore single newlines
         } else {
           const text = node.data.trim().replace(/(\n\s\s+)/g, ' ');
-          this.insert(`${text}\n`, indent);
+          if (text) {
+            this.insert(`${text}\n`, indent);
+          }
         }
         break;
       case 'comment':

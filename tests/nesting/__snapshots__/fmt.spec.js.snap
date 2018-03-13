@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nesting.html: nesting.html 1`] = `
+------------SOURCE PREVIEW------------
+<div class="class1">
+  <div class="class2">
+    <div class="class1 class2 class3" ng-repeat="(key, value) in $ctrl.searchTypes" ng-class="{ 'active': key === $ctrl.searchType }" ng-click="$ctrl.switchSearchType(key)">
+      <div class="class4">
+        <div class="class5">
+          <div class="class6">
+            <div class="class7 class8 class9" ng-repeat="(key, value) in $ctrl.searchTypes" ng-class="{ 'active': key === $ctrl.searchType }" ng-click="$ctrl.switchSearchType(key)">
+              <div class="class10">
+                <span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="class1"> <div class="class2"> <div class="class1 class2 class3" ng-repeat="(key, value) in $ctrl.searchTypes" ng-class="{'active': key===$ctrl.searchType}" ng-click="$ctrl.switchSearchType(key)"> <div class="class4"> <div class="class5"> <div class="class6"> <div class="class7 class8 class9" ng-repeat="(key, value) in $ctrl.searchTypes" ng-class="{'active': key===$ctrl.searchType}" ng-click="$ctrl.switchSearchType(key)"> <div class="class10"> <span> </span> </div></div></div></div></div></div></div></div>
+
+<div class="class1"><div class="class2"><div class="class1 class2 class3" ng-repeat="(key, value) in $ctrl.searchTypes" ng-class="{ 'active': key === $ctrl.searchType }" ng-click="$ctrl.switchSearchType(key)"><div class="class4"><div class="class5"><div class="class6"><div class="class7 class8 class9" ng-repeat="(key, value) in $ctrl.searchTypes" ng-class="{ 'active': key === $ctrl.searchType }" ng-click="$ctrl.switchSearchType(key)"><div class="class10"> <span> </span></div></div></div></div></div></div></div></div>
+
+------------OUTPUT PREVIEW------------
+
+<div class="class1">
+  <div class="class2">
+    <div
+      class="class1 class2 class3"
+      ng-repeat="(key, value) in $ctrl.searchTypes"
+      ng-class="{ 'active': key === $ctrl.searchType }"
+      ng-click="$ctrl.switchSearchType(key)">
+      <div class="class4">
+        <div class="class5">
+          <div class="class6">
+            <div
+              class="class7 class8 class9"
+              ng-repeat="(key, value) in $ctrl.searchTypes"
+              ng-class="{ 'active': key === $ctrl.searchType }"
+              ng-click="$ctrl.switchSearchType(key)">
+              <div class="class10">
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="class1">
+  <div class="class2">
+    <div
+      class="class1 class2 class3"
+      ng-repeat="(key, value) in $ctrl.searchTypes"
+      ng-class="{'active': key===$ctrl.searchType}"
+      ng-click="$ctrl.switchSearchType(key)">
+      <div class="class4">
+        <div class="class5">
+          <div class="class6">
+            <div
+              class="class7 class8 class9"
+              ng-repeat="(key, value) in $ctrl.searchTypes"
+              ng-class="{'active': key===$ctrl.searchType}"
+              ng-click="$ctrl.switchSearchType(key)">
+              <div class="class10">
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="class1">
+  <div class="class2">
+    <div
+      class="class1 class2 class3"
+      ng-repeat="(key, value) in $ctrl.searchTypes"
+      ng-class="{ 'active': key === $ctrl.searchType }"
+      ng-click="$ctrl.switchSearchType(key)">
+      <div class="class4">
+        <div class="class5">
+          <div class="class6">
+            <div
+              class="class7 class8 class9"
+              ng-repeat="(key, value) in $ctrl.searchTypes"
+              ng-class="{ 'active': key === $ctrl.searchType }"
+              ng-click="$ctrl.switchSearchType(key)">
+              <div class="class10">
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
