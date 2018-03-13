@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lines.html: lines.html 1`] = `
+------------SOURCE PREVIEW------------
+<div>
+  <div class="faux-tab"></div>
+  <div class="faux-tab"></div>
+  <div class="faux-tab"></div>
+
+
+
+
+  <div class="faux-tab"></div>
+  <div class="faux-tab"></div>
+
+  <!-- Comment -->
+  <div class="faux-tab"></div>
+  <div class="faux-tab"></div>
+
+  <div class="faux-tab"
+       ng-repeat="(key, value) in $ctrl.searchTypes"
+
+       ng-class="{ 'active': key === $ctrl.searchType }"
+
+       ng-click="$ctrl.switchSearchType(key)">
+  </div>
+</div>
+
+------------OUTPUT PREVIEW------------
+
+<div>
+  <div class="faux-tab"></div>
+  <div class="faux-tab"></div>
+  <div class="faux-tab"></div>
+
+  <div class="faux-tab"></div>
+  <div class="faux-tab"></div>
+
+  <!-- Comment -->
+  <div class="faux-tab"></div>
+  <div class="faux-tab"></div>
+
+  <div
+    class="faux-tab"
+    ng-repeat="(key, value) in $ctrl.searchTypes"
+    ng-class="{ 'active': key === $ctrl.searchType }"
+    ng-click="$ctrl.switchSearchType(key)"></div>
+</div>
+
+`;

@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`attributes.html: attributes.html 1`] = `
+------------SOURCE PREVIEW------------
+<div>
+  <div class="faux-tab"
+       ng-repeat="(key, value) in $ctrl.searchTypes"
+       ng-class="{ 'active': key === $ctrl.searchType }"
+       ng-click="$ctrl.switchSearchType(key)">
+  </div>
+
+  <div class="faux-tab"
+       ng-repeat="(key, value) in $ctrl.searchTypes"
+     ng-class="{ 'active': key === $ctrl.searchType }"
+  ng-click="$ctrl.switchSearchType(key)">
+  </div>
+
+  <div class="faux-tab" ng-repeat="(key, value) in $ctrl.searchTypes" ng-class="{ 'active': key === $ctrl.searchType }" ng-click="$ctrl.switchSearchType(key)"></div>
+
+  <div small-attribute class="faux-tab">
+  </div>
+
+  <div single-attribute-though-it-is-very-long-oh-yes-it-is-very-long-oh-deary-me>
+  </div>
+
+  <div long-attribute-though-it-is-with-another-oh-yes-it-is-very-long-oh-deary-me class="faux-tab">
+  </div>
+
+  <div single-attribute>
+  </div>
+
+  <div single-attribute="true">
+  </div>
+</div>
+
+------------OUTPUT PREVIEW------------
+
+<div>
+  <div
+    class="faux-tab"
+    ng-repeat="(key, value) in $ctrl.searchTypes"
+    ng-class="{ 'active': key === $ctrl.searchType }"
+    ng-click="$ctrl.switchSearchType(key)"></div>
+
+  <div
+    class="faux-tab"
+    ng-repeat="(key, value) in $ctrl.searchTypes"
+    ng-class="{ 'active': key === $ctrl.searchType }"
+    ng-click="$ctrl.switchSearchType(key)"></div>
+
+  <div
+    class="faux-tab"
+    ng-repeat="(key, value) in $ctrl.searchTypes"
+    ng-class="{ 'active': key === $ctrl.searchType }"
+    ng-click="$ctrl.switchSearchType(key)"></div>
+
+  <div small-attribute class="faux-tab"></div>
+
+  <div single-attribute-though-it-is-very-long-oh-yes-it-is-very-long-oh-deary-me></div>
+
+  <div
+    long-attribute-though-it-is-with-another-oh-yes-it-is-very-long-oh-deary-me
+    class="faux-tab"></div>
+
+  <div single-attribute></div>
+
+  <div single-attribute="true"></div>
+</div>
+
+`;
