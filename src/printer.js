@@ -29,7 +29,7 @@ class Printer {
     const parser = new htmlparser.Parser(handler);
     parser.parseComplete(rawHtml);
 
-    // console.log(util.inspect(handler.dom, false, null));
+    console.log(util.inspect(handler.dom, false, null));
 
     for (let i = 0; i < handler.dom.length; ++i) {
       this.parse(handler.dom[i], 0);
@@ -74,7 +74,7 @@ class Printer {
         if (/^\n\n\s*/.test(node.data)) {
           this.insert('\n');
         } else if (/^\n\s*/.test(node.data)) {
-          // Ignore single newlines
+          // Ignore end-of-line characters
         } else {
           const text = node.data.trim().replace(/(\n\s\s+)/g, ' ');
           if (text) {

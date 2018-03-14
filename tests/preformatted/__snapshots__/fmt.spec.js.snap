@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`preformatted.html: preformatted.html 1`] = `
+------------SOURCE PREVIEW------------
+<pre>This
+         should
+               keep
+                   whitespace</pre>
+
+<div>
+  <pre>
+    So should
+this</pre>
+</div>
+
+<div>
+  <pre>
+    <code>
+      And    this
+    </code>
+  </pre>
+</div>
+
+<div>
+  <pre><code>
+      And    this</code></pre>
+</div>
+
+------------OUTPUT PREVIEW------------
+
+<pre>This
+         should
+               keep
+                   whitespace</pre>
+
+<div>
+  <pre>
+    So should
+this</pre>
+</div>
+
+<div>
+  <pre>
+    <code>
+      And    this
+    </code>
+  </pre>
+</div>
+
+<div>
+  <pre>
+    <code>
+      And    this</code>
+  </pre>
+</div>
+
+`;
