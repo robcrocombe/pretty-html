@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('globby');
-const Printer = require('./printer');
+const Printer = require('./printer2');
 
 class PrettyHtml {
   async run(input, overwrite) {

@@ -1,66 +1,73 @@
 const util = require('util');
+const beautify = require('js-beautify').html;
 const htmlparser = require('htmlparser');
-const voidElements = require('./printer.config');
-const INDENTATION = 2;
 const LINE_LENGTH = 40;
-
-htmlparser.DefaultHandler._emptyTags = {
-  ...htmlparser.DefaultHandler._emptyTags,
-  source: 1,
-  track: 1,
-  wbr: 1,
-};
 
 class Printer {
   constructor() {
     this.output = '';
+    this.indent = 0;
   }
 
   run(rawHtml) {
-    const handler = new htmlparser.DefaultHandler(
-      (err, dom) => {
-        if (err) throw err;
-      },
-      {
-        ignoreWhitespace: false,
-      }
-    );
+    const processedHtml = beautify(rawHtml, {
+      type: 'html',
+      indent_size: 2,
+      wrap_line_length: 0,
+      indent_inner_html: true,
+      indent_handlebars: true,
+      max_preserve_newlines: 1,
+      end_with_newline: true,
+    });
 
-    const parser = new htmlparser.Parser(handler);
-    parser.parseComplete(rawHtml);
-
-    console.log(util.inspect(handler.dom, false, null));
-
-    for (let i = 0; i < handler.dom.length; ++i) {
-      this.parse(handler.dom[i], 0);
-    }
-
-    return this.output;
+    return this.test(processedHtml);
   }
 
-  parse(node, indent, preformatted) {
-    const pre = preformatted || node.name === 'pre';
-    const preChildIsTag =
-      node.name === 'pre' &&
-      node.children &&
-      node.children.length &&
-      node.children[0].type === 'tag';
+  test(html) {
+    const regex = /<(?![!\/]).*?>/gi;
 
-    // A tag with either no children, or one child with no spaces
-    const simpleNode =
-      !pre &&
-      node.type === 'tag' &&
-      ((node.children &&
-        node.children.length === 1 &&
-        node.children[0].type === 'text' &&
-        node.children[0].data.trim().length <= 25) ||
-        !node.children);
+    return html.replace(regex, (match, p1) => {
+      const handler = new htmlparser.DefaultHandler(
+        (err, dom) => {
+          if (err) throw err;
+        },
+        {
+          ignoreWhitespace: false,
+        }
+      );
 
+      const parser = new htmlparser.Parser(handler);
+      parser.parseComplete(match);
+
+      const node = handler.dom[0];
+
+      let out = `<${node.name}`;
+
+      if (node.attribs) {
+        const attrCount = Object.keys(node.attribs).length;
+
+        for (const k in node.attribs) {
+          const attrib = this.formatAttribute(k, node.attribs);
+
+          if (node.raw.length > 40 && attrCount > 1) {
+            out += '\n';
+            out += ' '.repeat(4) + attrib;
+          } else {
+            out += ' ' + attrib;
+          }
+        }
+      }
+
+      out += '>';
+
+      return out;
+    });
+  }
+
+  parse(node, indent) {
     switch (node.type) {
       case 'tag':
-        const startIndent = preformatted ? (this.output.slice(-1) === '\n' ? indent : 0) : indent;
-
-        this.insert(`<${node.name}`, startIndent);
+        this.insert(`<${node.name}`, indent);
         if (node.attribs) {
           const attrCount = Object.keys(node.attribs).length;
 
@@ -76,13 +83,9 @@ class Printer {
           }
         }
 
-        if (pre) {
-          this.insert(`>\n`);
-        } else {
-          simpleNode
-            ? this.insert(`>${node.children ? node.children[0].data.trim() : ''}`)
-            : this.insert('>\n');
-        }
+        simpleNode
+          ? this.insert(`>${node.children ? node.children[0].data.trim() : ''}`)
+          : this.insert('>\n');
         break;
       case 'text':
         if (pre) {
