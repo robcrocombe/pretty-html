@@ -1,9 +1,8 @@
 const fs = require('fs');
 const Printer = require('./../src/printer');
+const helpers = require('./helpers');
 
 const prettyHtml = new Printer();
-const SOURCE_SEPARATOR = '------------SOURCE PREVIEW------------\n';
-const OUTPUT_SEPARATOR = '\n------------OUTPUT PREVIEW------------\n\n';
 
 // https://github.com/prettier/prettier/blob/master/tests_config/run_spec.js
 function run_spec(dirName) {
@@ -15,22 +14,13 @@ function run_spec(dirName) {
 
       const output = prettyHtml.run(source);
 
-      const snap = raw(SOURCE_SEPARATOR + source + OUTPUT_SEPARATOR + output);
+      const snap = helpers.compositeSnapshot(source, output);
 
-      test(fileName, () => {
+      test('Unit', () => {
         expect(snap).toMatchSnapshot(fileName);
       });
     }
   });
-}
-
-/**
- * Wraps a string in a marker object that is used by `./raw-serializer.js` to
- * directly print that string in a snapshot without escaping all double quotes.
- * Backticks will still be escaped.
- */
-function raw(string) {
-  return { [Symbol.for('raw')]: string };
 }
 
 global.run_spec = run_spec;

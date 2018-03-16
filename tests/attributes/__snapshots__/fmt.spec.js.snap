@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.html: attributes.html 1`] = `
+exports[`Unit: attributes.html 1`] = `
 ------------SOURCE PREVIEW------------
 <div class="faux-tab"
      ng-repeat="(key, value) in $ctrl.searchTypes"

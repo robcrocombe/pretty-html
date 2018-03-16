@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`void-tags.html: void-tags.html 1`] = `
+exports[`Unit: void-tags.html 1`] = `
 ------------SOURCE PREVIEW------------
 <div>
   <area shape="" coords="" href="">

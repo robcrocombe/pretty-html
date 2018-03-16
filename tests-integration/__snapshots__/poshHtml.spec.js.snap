@@ -1,0 +1,373 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PoshHtml library works: files/a.html 1`] = `
+<div
+  class="flex flex-auto flex-column overflow-hidden"
+  style="height: 100%">
+
+  <!-- Lookup search header -->
+  <header class="lookup-search-header bg-white flex flex-column px3">
+
+    <!-- Search tabs -->
+    <div class="faux-tabs mx-auto my1">
+      <div
+        class="faux-tab"
+        ng-repeat="(key, value) in $ctrl.searchTypes"
+        ng-class="{ 'active': key === $ctrl.searchType }"
+        ng-click="$ctrl.switchSearchType(key)">
+        <span>{{ ::value.name }}</span>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="col-12 mb1">
+      <!-- Field -->
+      <form
+        class="large-search-field-form relative"
+        ng-submit="$ctrl.search($ctrl.searchType, $ctrl.searchQuery, true)">
+        <input
+          ng-repeat="(key, value) in $ctrl.searchTypes"
+          ng-if="$ctrl.searchType === key"
+          type="{{ value.type }}"
+          class="silencer block col-12 field large no-transition"
+          ng-model="$ctrl.searchQuery"
+          ng-attr-placeholder="{{ value.placeholder }}">
+
+        <!-- Change this .network-search-input-button class to something more generic -->
+        <button
+          type="submit"
+          class="network-search-input-button">
+          <i class="material-icons">search</i>
+        </button>
+      </form>
+    </div>
+
+  </header>
+
+  <!-- Lookup view -->
+  <div
+    class="flex flex-auto"
+    ng-switch="$ctrl.pageState">
+
+    <!-- state === 'loading' -->
+    <div
+      class="flex flex-center flex-auto"
+      ng-switch-when="loading">
+      <div class="col-4 mx-auto mb2">
+        <div class="flex flex-column">
+          <round-spinner class="mx-auto mb1"></round-spinner>
+          <span class="label-text primary block center mx-auto">
+            Searching over Ravelin lookup...
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- state === 'empty' -->
+    <div
+      class="flex flex-center flex-auto"
+      ng-switch-when="empty">
+      <div class="col-4 mx-auto mb2">
+        <span class="heading-text primary block center mb1">
+          No match containing “{{ ::$ctrl.searchQuery }}”
+        </span>
+        <span class="description-text primary muted block center">
+          We couldn't find any fraud associated with the {{ ::$ctrl.searchType }} "{{ ::$ctrl.searchQuery }}" in our database.
+        </span>
+      </div>
+    </div>
+
+    <!-- state === 'data' -->
+    <div
+      class="flex flex-auto overflow-auto"
+      ng-switch-when="data">
+      <lookup-search-result
+        class="mx-auto"
+        type="::$ctrl.searchType"
+        query="::$ctrl.searchQuery"
+        has-chargebacks="$ctrl.result.hasChargebacks"
+        reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster"></lookup-search-result>
+    </div>
+
+    <!-- state === 'error' -->
+    <div
+      class="flex flex-center flex-auto"
+      ng-switch-when="error">
+      <div class="col-4 mx-auto mb2">
+        <span class="heading-text primary block center mb1">
+          Oops! Something went wrong.
+        </span>
+        <span class="description-text primary muted block center">
+          We're sorry. An error occurred and we were unable to complete the search. Please try again.
+        </span>
+      </div>
+    </div>
+
+    <!-- state === 'formaterror' -->
+    <div
+      class="flex flex-center flex-auto"
+      ng-switch-when="formaterror">
+      <div class="col-4 mx-auto mb2">
+        <span class="heading-text primary block center mb1">
+          That number doesn't look right...
+        </span>
+        <span class="description-text primary muted block center">
+          Make sure the phone number you are searching for is
+          <a
+            href="https://ravelin.zendesk.com/hc/en-us/articles/115002238771#contents-anchor-2"
+            target="_blank">formatted correctly</a>
+          and includes a country calling code (e.g., +44).
+        </span>
+      </div>
+    </div>
+
+    <!-- state === undefined -->
+    <div
+      class="flex flex-center flex-auto"
+      ng-switch-default>
+      <div class="col-4 mx-auto mb2">
+        <span class="heading-text primary block center mb1">Discover known fraudsters</span>
+        <span class="description-text primary muted block center">
+          Enter an email, phone number or IP address in the search box above to discover a known fraudster.
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+exports[`PoshHtml library works: files/b.html 1`] = `
+<div class="flex flex-column flex-auto">
+  <div class="page-background">
+
+    <h1 class="mb3">My Team</h1>
+    <div class="col-12">
+      <div
+        class="flex flex-auto flex-center"
+        ng-if="vm.loading">
+        <round-spinner class="mx-auto my3"></round-spinner>
+      </div>
+
+      <div
+        class="legacy-data-table bg-white flex flex-column border"
+        ng-if="!vm.loading">
+        <header class="legacy-data-table-header flex flex-center border-bottom border-box py1">
+          <h3 class="m0">
+            Team members ({{ vm.users.length }})
+          </h3>
+          <div class="flex-auto"></div>
+          <button
+            ui-sref="settings.team.add"
+            ff-show="admin"
+            class="btn btn-primary">Add user</button>
+        </header>
+
+        <table class="table-light">
+          <thead>
+            <tr>
+              <th class="col-5">Email</th>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Two-Factor auth</th>
+              <th
+                class="legacy-data-table-edit-col"
+                ff-show="admin"></th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="user in vm.users">
+            <tr>
+              <td>{{ user.email }}</td>
+              <td>
+                {{ user.firstName }} {{ user.lastName }}
+              </td>
+              <td>
+                {{ user.role | capitalise }}
+              </td>
+              <td>
+                <material-icon
+                  i="done"
+                  class="ravelin-green"
+                  ng-if="user.twoFactorEnabled"></material-icon>
+                <material-icon
+                  i="clear"
+                  class="ravelin-red"
+                  ng-if="!user.twoFactorEnabled"></material-icon>
+              </td>
+              <td ff-show="admin">
+                <button
+                  ui-sref="settings.team.edit({id:user.userId})"
+                  class="btn">Edit</button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+`;
+
+exports[`PoshHtml library works: files/c.html 1`] = `
+<div class="flex flex-column flex-auto">
+  <div class="page-background">
+    <div class="container">
+      <div class="mx-auto">
+        <div class="settings-modal mx-auto">
+          <div class="client-details center">
+            <div class="client-badge bg-gray rounded overflow-hidden ng-gray mx-auto mb1">
+              <img
+                ng-src="{{ $root.account.clientBadge.urlLarge }}"
+                err-src="images/client-logo-default.svg"
+                alt="{{ $root.account.displayName || $root.currentClient.id }}"
+                style="cursor: pointer;">
+            </div>
+            <h1
+              class="center m0 p0"
+              style="text-transform: capitalize;">
+              {{ $root.account.displayName || $root.currentClient.id }}
+            </h1>
+          </div>
+
+          <nav
+            id="settingsMenu"
+            class="settings-menu mx-auto">
+            <div ng-if="$ctrl.apiKey">
+              <div align="center">
+                <h2>
+                  {{ $root.sandboxModeEnabled ? 'Sandbox' : 'Live' }} Secret API Key
+                </h2>
+              </div>
+              <div class="block border-box center relative">
+                <input
+                  readonly
+                  ng-disabled="$ctrl.apiKeyDisabled"
+                  type="{{ $ctrl.apiHidden ? "password" : "text" }}"
+                  value="{{ $ctrl.apiKey }}"
+                  class="block col-12 mb1 field">
+                <button
+                  ng-click="$ctrl.apiHidden = !$ctrl.apiHidden"
+                  class="btn col-12">
+                  {{ $ctrl.apiHidden ? "Show" : "Hide" }} secret key
+                </button>
+                <span
+                  style="top:8px; right:10px;"
+                  class="block absolute"
+                  tooltip
+                  tooltip-side="right"
+                  tooltip-title="{{ $ctrl.disabledKeyTooltip }}">
+                  <i
+                    ng-show="$ctrl.apiKeyDisabled"
+                    class="material-icons red">block</i>
+                </span>
+              </div>
+            </div>
+            <div ng-if="$ctrl.publishableKey">
+              <div align="center">
+                <h2>
+                  {{ $root.sandboxModeEnabled ? 'Sandbox' : 'Live' }} Publishable API Key
+                </h2>
+              </div>
+              <div class="block border-box center relative">
+                <input
+                  readonly
+                  ng-disabled="$ctrl.publishableKeyDisabled"
+                  type="{{ $ctrl.publishableHidden ? "password" : "text" }}"
+                  value="{{ $ctrl.publishableKey }}"
+                  class="block col-12 mb1 field">
+                <button
+                  ng-click="$ctrl.publishableHidden = !$ctrl.publishableHidden"
+                  class="btn col-12">
+                  {{ $ctrl.publishableHidden ? "Show" : "Hide" }} publishable key
+                </button>
+                <span
+                  style="top:8px; right:10px;"
+                  class="block absolute"
+                  tooltip
+                  tooltip-side="right"
+                  tooltip-title="{{ $ctrl.disabledKeyTooltip }}">
+                  <i
+                    ng-show="$ctrl.publishableKeyDisabled"
+                    class="material-icons red">block</i>
+                </span>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+exports[`PoshHtml library works: files/d.html 1`] = `
+<!-- [if lt IE 8]> <html class="no-js lt-ie8"> <![endif] -->
+<!-- [if gt IE 8]><! -->
+<html class="no-js">
+  <!-- <![endif] -->
+  <head>
+    <meta charset="utf-8">
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge">
+    <title>Ravelin</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta
+      name="robots"
+      content="noindex,nofollow">
+
+    <link
+      rel="stylesheet"
+      href="styles/app.css?rev=0">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/color-brewer.min.css">
+    <!-- start Mixpanel -->
+    <!-- end Mixpanel -->
+
+  </head>
+
+  <body
+    data-ng-app="app"
+    id="app"
+    class="taxi-app"
+    data-custom-page
+    data-off-canvas-nav
+    data-ng-controller="AppCtrl"
+    data-spy="scroll"
+    data-target=".scrollspy">
+
+    <div class="page flex absolute top-0 right-0 bottom-0 left-0 overflow-hidden">
+      <div
+        class="flex flex-row"
+        ng-if="::$root.hasSession"
+        ng-cloak>
+        <navbar></navbar>
+      </div>
+      <div class="flex flex-auto flex-column relative">
+        <top-nav
+          ng-if="::$root.hasSession"
+          ng-cloak></top-nav>
+        <div
+          ng-if="!$root.loadingPage"
+          class="flex flex-auto overflow-auto"
+          ui-view></div>
+        <div
+          ng-if="$root.loadingPage"
+          class="flex flex-auto flex-center">
+          <round-spinner class="mx-auto"></round-spinner>
+        </div>
+      </div>
+    </div>
+
+
+  </body>
+</html>
+
+`;

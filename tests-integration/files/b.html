@@ -1,0 +1,49 @@
+<div class="flex flex-column flex-auto">
+  <div class="page-background">
+
+    <h1 class="mb3">My Team</h1>
+    <div class="col-12">
+      <div class="flex flex-auto flex-center" ng-if="vm.loading">
+        <round-spinner class="mx-auto my3"></round-spinner>
+      </div>
+
+      <div class="legacy-data-table bg-white flex flex-column border" ng-if="!vm.loading">
+        <header class="legacy-data-table-header flex flex-center border-bottom border-box py1">
+          <h3 class="m0">Team members ({{ vm.users.length }})</h3>
+          <div class="flex-auto"></div>
+          <button ui-sref="settings.team.add"
+                  ff-show="admin"
+                  class="btn btn-primary">
+            Add user
+          </button>
+        </header>
+
+        <table class="table-light">
+          <thead>
+            <tr>
+              <th class="col-5">Email</th>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Two-Factor auth</th>
+              <th class="legacy-data-table-edit-col" ff-show="admin"></th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="user in vm.users">
+            <tr>
+              <td>{{ user.email }}</td>
+              <td>{{ user.firstName }} {{ user.lastName }}</td>
+              <td>{{ user.role | capitalise }}</td>
+              <td>
+                <material-icon i="done" class="ravelin-green" ng-if="user.twoFactorEnabled"></material-icon>
+                <material-icon i="clear" class="ravelin-red" ng-if="!user.twoFactorEnabled"></material-icon>
+              </td>
+              <td ff-show="admin"><button ui-sref="settings.team.edit({id:user.userId})" class="btn">Edit</button></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

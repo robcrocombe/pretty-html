@@ -17,11 +17,14 @@
     ]
   },
   "bin": {
-    "prettierhtml": "./src/cli.js"
+    "prettierhtml": "./bin/poshHtml.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robcrocombe/pretty-html.git"
+  },
+  "engines": {
+    "node": ">=9.3.0"
   },
   "author": "robcrocombe",
   "license": "ISC",

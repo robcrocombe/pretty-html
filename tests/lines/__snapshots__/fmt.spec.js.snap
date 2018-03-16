@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lines.html: lines.html 1`] = `
+exports[`Unit: lines.html 1`] = `
 ------------SOURCE PREVIEW------------
 <div class="faux-tab"></div>
 <div class="faux-tab"></div>

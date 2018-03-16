@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nesting.html: nesting.html 1`] = `
+exports[`Unit: nesting.html 1`] = `
 ------------SOURCE PREVIEW------------
 <div class="class1">
   <div class="class2">
