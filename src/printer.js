@@ -29,7 +29,7 @@ class Printer {
     const parser = new htmlparser.Parser(handler);
     parser.parseComplete(rawHtml);
 
-    console.log(util.inspect(handler.dom, false, null));
+    // console.log(util.inspect(handler.dom, false, null));
 
     for (let i = 0; i < handler.dom.length; ++i) {
       this.parse(handler.dom[i], 0);
@@ -38,17 +38,10 @@ class Printer {
     return this.output;
   }
 
-  parse(node, indent, preformatted) {
-    const pre = preformatted || node.name === 'pre';
-    const preChildIsTag =
-      node.name === 'pre' &&
-      node.children &&
-      node.children.length &&
-      node.children[0].type === 'tag';
-
+  parse(node, indent) {
+    const pre = node.name === 'pre';
     // A tag with either no children, or one child with no spaces
     const simpleNode =
-      !pre &&
       node.type === 'tag' &&
       ((node.children &&
         node.children.length === 1 &&
@@ -58,9 +51,7 @@ class Printer {
 
     switch (node.type) {
       case 'tag':
-        const startIndent = preformatted ? (this.output.slice(-1) === '\n' ? indent : 0) : indent;
-
-        this.insert(`<${node.name}`, startIndent);
+        this.insert(`<${node.name}`, indent);
         if (node.attribs) {
           const attrCount = Object.keys(node.attribs).length;
 
@@ -77,7 +68,7 @@ class Printer {
         }
 
         if (pre) {
-          this.insert(`>\n`);
+          this.insert('>');
         } else {
           simpleNode
             ? this.insert(`>${node.children ? node.children[0].data.trim() : ''}`)
@@ -85,18 +76,14 @@ class Printer {
         }
         break;
       case 'text':
-        if (pre) {
-          this.insert(node.data);
+        if (/^\n\n\s*/.test(node.data)) {
+          this.insert('\n');
+        } else if (/^\n\s*/.test(node.data)) {
+          // Ignore end-of-line characters
         } else {
-          if (/^\n\n\s*/.test(node.data)) {
-            this.insert('\n');
-          } else if (/^\n\s*/.test(node.data)) {
-            // Ignore end-of-line characters
-          } else {
-            const text = node.data.trim().replace(/(\n\s\s+)/g, ' ');
-            if (text) {
-              this.insert(`${text}\n`, indent);
-            }
+          const text = node.data.trim().replace(/(\n\s\s+)/g, ' ');
+          if (text) {
+            this.insert(`${text}\n`, indent);
           }
         }
         break;
@@ -105,22 +92,28 @@ class Printer {
         break;
     }
 
-    if (!simpleNode && node.children) {
+    if (pre) {
       const newIndent = indent + INDENTATION;
 
       for (let i = 0; i < node.children.length; ++i) {
-        this.parse(node.children[i], newIndent, pre);
+        this.parseUnformatted(node.children[i], newIndent);
+      }
+    } else if (!simpleNode && node.children) {
+      const newIndent = indent + INDENTATION;
+
+      for (let i = 0; i < node.children.length; ++i) {
+        this.parse(node.children[i], newIndent);
       }
     }
 
     switch (node.type) {
       case 'tag':
-        if (preformatted) {
-          this.insert(`</${node.name}>`, 0);
+        if (pre) {
+          this.insert(`</${node.name}>\n`);
         } else if (voidElements.indexOf(node.name) === -1) {
-          this.insert(`</${node.name}>\n`, simpleNode || pre ? 0 : indent);
+          this.insert(`</${node.name}>\n`, simpleNode ? 0 : indent);
         } else {
-          this.insert(`\n`, 0);
+          this.insert(`\n`);
         }
         break;
     }
@@ -132,6 +125,50 @@ class Printer {
 
   insert(text, indent = 0) {
     this.output += ' '.repeat(indent) + text;
+  }
+
+  parseUnformatted(node, indent) {
+    switch (node.type) {
+      case 'tag':
+        this.insert(`<${node.name}`);
+        if (node.attribs) {
+          const attrCount = Object.keys(node.attribs).length;
+
+          for (const k in node.attribs) {
+            const attrib = this.formatAttribute(k, node.attribs);
+
+            if (node.raw.length > LINE_LENGTH && attrCount > 1) {
+              this.insert('\n');
+              this.insert(attrib, indent + INDENTATION);
+            } else {
+              this.insert(attrib, 1);
+            }
+          }
+        }
+
+        this.insert('>');
+        break;
+      case 'text':
+        this.insert(node.data);
+        break;
+      case 'comment':
+        this.insert(`<!-- ${node.data} -->`);
+        break;
+    }
+
+    if (node.children) {
+      const newIndent = indent + INDENTATION;
+
+      for (let i = 0; i < node.children.length; ++i) {
+        this.parseUnformatted(node.children[i], newIndent);
+      }
+    }
+
+    switch (node.type) {
+      case 'tag':
+        this.insert(`</${node.name}>`);
+        break;
+    }
   }
 }
 

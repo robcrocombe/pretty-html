@@ -12,7 +12,7 @@ this</pre>
 <div>
   <pre>
     <code>
-      And    this
+        And    this
     </code>
   </pre>
 </div>
@@ -20,4 +20,18 @@ this</pre>
 <div>
   <pre><code>
       And    this</code></pre>
+</div>
+
+<div>
+  <pre class="align-right">
+    One
+attribute</pre>
+</div>
+
+<div>
+  <pre class="align-right" class="faux-tab" ng-repeat="(key, value) in $ctrl.searchTypes" ng-class="{ 'active': key === $ctrl.searchType }" ng-click="$ctrl.switchSearchType(key)">
+Many
+          attributes
+      here
+  </pre>
 </div>
