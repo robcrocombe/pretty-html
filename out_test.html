@@ -1,6 +1,4 @@
-<div
-  class="flex flex-auto flex-column overflow-hidden"
-  style="height: 100%">
+<div class="flex flex-auto flex-column overflow-hidden" style="height: 100%">
 
   <!-- Lookup search header -->
   <header class="lookup-search-header bg-white flex flex-column px3">
@@ -30,10 +28,9 @@
           ng-model="$ctrl.searchQuery"
           ng-attr-placeholder="{{ value.placeholder }}">
 
+
         <!-- Change this .network-search-input-button class to something more generic -->
-        <button
-          type="submit"
-          class="network-search-input-button">
+        <button type="submit" class="network-search-input-button">
           <i class="material-icons">search</i>
         </button>
       </form>
@@ -42,17 +39,14 @@
   </header>
 
   <!-- Lookup view -->
-  <div
-    class="flex flex-auto"
-    ng-switch="$ctrl.pageState">
+  <div class="flex flex-auto" ng-switch="$ctrl.pageState">
 
     <!-- state === 'loading' -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-when="loading">
+    <div class="flex flex-center flex-auto" ng-switch-when="loading">
       <div class="col-4 mx-auto mb2">
         <div class="flex flex-column">
-          <round-spinner class="mx-auto mb1"></round-spinner>
+          <round-spinner class="mx-auto mb1">
+          </round-spinner>
           <span class="label-text primary block center mx-auto">
             Searching over Ravelin lookup...
           </span>
@@ -61,9 +55,7 @@
     </div>
 
     <!-- state === 'empty' -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-when="empty">
+    <div class="flex flex-center flex-auto" ng-switch-when="empty">
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">
           No match containing “{{ ::$ctrl.searchQuery }}”
@@ -75,21 +67,18 @@
     </div>
 
     <!-- state === 'data' -->
-    <div
-      class="flex flex-auto overflow-auto"
-      ng-switch-when="data">
+    <div class="flex flex-auto overflow-auto" ng-switch-when="data">
       <lookup-search-result
         class="mx-auto"
         type="::$ctrl.searchType"
         query="::$ctrl.searchQuery"
         has-chargebacks="$ctrl.result.hasChargebacks"
-        reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster"></lookup-search-result>
+        reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+      </lookup-search-result>
     </div>
 
     <!-- state === 'error' -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-when="error">
+    <div class="flex flex-center flex-auto" ng-switch-when="error">
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">
           Oops! Something went wrong.
@@ -101,9 +90,7 @@
     </div>
 
     <!-- state === 'formaterror' -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-when="formaterror">
+    <div class="flex flex-center flex-auto" ng-switch-when="formaterror">
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">
           That number doesn't look right...
@@ -119,9 +106,7 @@
     </div>
 
     <!-- state === undefined -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-default>
+    <div class="flex flex-center flex-auto" ng-switch-default>
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">Discover known fraudsters</span>
         <span class="description-text primary muted block center">

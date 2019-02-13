@@ -33,7 +33,7 @@ class PrettyHtml {
   }
 
   writeFile(writePath, text) {
-    const p = path.resolve(path.dirname(writePath), 'out_' + path.basename(inPath));
+    const p = path.resolve(path.dirname(writePath), 'out_' + path.basename(writePath));
 
     return writeFileAsync(p, text);
   }

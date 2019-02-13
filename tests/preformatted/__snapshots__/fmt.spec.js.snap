@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unit: preformatted.html 1`] = `
+exports[`preformatted: preformatted.html 1`] = `
 ------------SOURCE PREVIEW------------
 <pre>This
          should

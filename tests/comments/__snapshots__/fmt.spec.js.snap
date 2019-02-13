@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unit: comments.html 1`] = `
+exports[`comments: comments.html 1`] = `
 ------------SOURCE PREVIEW------------
 <!-- Starting with a comment -->
 <div>

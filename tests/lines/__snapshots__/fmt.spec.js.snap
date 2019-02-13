@@ -1,6 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unit: lines.html 1`] = `
+exports[`lines: close-tags.html 1`] = `
+------------SOURCE PREVIEW------------
+<lookup-search-result class="mx-auto"></lookup-search-result>
+
+<lookup-search-result class="mx-auto" type="::$ctrl.searchType"></lookup-search-result>
+
+<lookup-search-result></lookup-search-result>
+
+<lookup-search-result
+  class="mx-auto"
+  type="::$ctrl.searchType"
+  query="::$ctrl.searchQuery"
+  has-chargebacks="$ctrl.result.hasChargebacks"
+  reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+</lookup-search-result>
+
+<lookup-search-result
+  class="mx-auto"
+  type="::$ctrl.searchType"
+  query="::$ctrl.searchQuery"
+  has-chargebacks="$ctrl.result.hasChargebacks"
+  reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster"></lookup-search-result>
+
+<lookup-search-result class="mx-auto" type="::$ctrl.searchType" query="::$ctrl.searchQuery" has-chargebacks="$ctrl.result.hasChargebacks" reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster"></lookup-search-result>
+
+<lookup-search-result class="mx-auto" type="::$ctrl.searchType" query="::$ctrl.searchQuery" has-chargebacks="$ctrl.result.hasChargebacks" reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+
+</lookup-search-result>
+
+<lookup-search-result class="mx-auto" type="::$ctrl.searchType" query="::$ctrl.searchQuery" has-chargebacks="$ctrl.result.hasChargebacks" reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+</lookup-search-result>
+
+------------OUTPUT PREVIEW------------
+
+<lookup-search-result class="mx-auto"></lookup-search-result>
+
+<lookup-search-result class="mx-auto" type="::$ctrl.searchType"></lookup-search-result>
+
+<lookup-search-result></lookup-search-result>
+
+<lookup-search-result
+  class="mx-auto"
+  type="::$ctrl.searchType"
+  query="::$ctrl.searchQuery"
+  has-chargebacks="$ctrl.result.hasChargebacks"
+  reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+</lookup-search-result>
+
+<lookup-search-result
+  class="mx-auto"
+  type="::$ctrl.searchType"
+  query="::$ctrl.searchQuery"
+  has-chargebacks="$ctrl.result.hasChargebacks"
+  reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+</lookup-search-result>
+
+<lookup-search-result
+  class="mx-auto"
+  type="::$ctrl.searchType"
+  query="::$ctrl.searchQuery"
+  has-chargebacks="$ctrl.result.hasChargebacks"
+  reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+</lookup-search-result>
+
+<lookup-search-result
+  class="mx-auto"
+  type="::$ctrl.searchType"
+  query="::$ctrl.searchQuery"
+  has-chargebacks="$ctrl.result.hasChargebacks"
+  reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+</lookup-search-result>
+
+<lookup-search-result
+  class="mx-auto"
+  type="::$ctrl.searchType"
+  query="::$ctrl.searchQuery"
+  has-chargebacks="$ctrl.result.hasChargebacks"
+  reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+</lookup-search-result>
+
+`;
+
+exports[`lines: empty-lines.html 1`] = `
 ------------SOURCE PREVIEW------------
 <div class="faux-tab"></div>
 <div class="faux-tab"></div>
@@ -26,21 +108,29 @@ exports[`Unit: lines.html 1`] = `
 
 ------------OUTPUT PREVIEW------------
 
-<div class="faux-tab"></div>
-<div class="faux-tab"></div>
-<div class="faux-tab"></div>
+<div class="faux-tab">
+</div>
+<div class="faux-tab">
+</div>
+<div class="faux-tab">
+</div>
 
-<div class="faux-tab"></div>
-<div class="faux-tab"></div>
+<div class="faux-tab">
+</div>
+<div class="faux-tab">
+</div>
 
 <!-- Comment -->
-<div class="faux-tab"></div>
-<div class="faux-tab"></div>
+<div class="faux-tab">
+</div>
+<div class="faux-tab">
+</div>
 
 <div
   class="faux-tab"
   ng-repeat="(key, value) in $ctrl.searchTypes"
   ng-class="{ 'active': key === $ctrl.searchType }"
-  ng-click="$ctrl.switchSearchType(key)"></div>
+  ng-click="$ctrl.switchSearchType(key)">
+</div>
 
 `;

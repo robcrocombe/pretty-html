@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unit: nesting.html 1`] = `
+exports[`nesting: nesting.html 1`] = `
 ------------SOURCE PREVIEW------------
 <div class="class1">
   <div class="class2">
@@ -43,7 +43,8 @@ exports[`Unit: nesting.html 1`] = `
               ng-class="{ 'active': key === $ctrl.searchType }"
               ng-click="$ctrl.switchSearchType(key)">
               <div class="class10">
-                <span></span>
+                <span>
+                </span>
               </div>
             </div>
           </div>
@@ -69,7 +70,8 @@ exports[`Unit: nesting.html 1`] = `
               ng-class="{'active': key===$ctrl.searchType}"
               ng-click="$ctrl.switchSearchType(key)">
               <div class="class10">
-                <span></span>
+                <span>
+                </span>
               </div>
             </div>
           </div>
@@ -95,7 +97,8 @@ exports[`Unit: nesting.html 1`] = `
               ng-class="{ 'active': key === $ctrl.searchType }"
               ng-click="$ctrl.switchSearchType(key)">
               <div class="class10">
-                <span></span>
+                <span>
+                </span>
               </div>
             </div>
           </div>

@@ -12,11 +12,9 @@ htmlparser.DefaultHandler._emptyTags = {
 };
 
 class Printer {
-  constructor() {
-    this.output = '';
-  }
-
   run(rawHtml) {
+    this.output = '';
+
     const handler = new htmlparser.DefaultHandler(
       (err, dom) => {
         if (err) throw err;
@@ -40,17 +38,32 @@ class Printer {
 
   parse(node, indent) {
     const pre = node.name === 'pre';
-    // A tag with either no children, or one child with no spaces
+
     const simpleNode =
+      node.type === 'tag' &&
+      node.children &&
+      node.children.length === 1 &&
+      node.children[0].type === 'text' &&
+      node.children[0].data.trim().length &&
+      node.children[0].data.trim().length <= 25;
+
+    const emptyNode =
       node.type === 'tag' &&
       ((node.children &&
         node.children.length === 1 &&
         node.children[0].type === 'text' &&
-        node.children[0].data.trim().length <= 25) ||
+        !node.children[0].data.trim().length) ||
         !node.children);
 
+    // if (node.name === 'lookup-search-result') {
+    //   console.log(node);
+    // }
+
     switch (node.type) {
+      case 'script':
+      case 'style':
       case 'tag':
+        // Start tag
         this.insert(`<${node.name}`, indent);
         if (node.attribs) {
           const attrCount = Object.keys(node.attribs).length;
@@ -67,12 +80,32 @@ class Printer {
           }
         }
 
-        if (pre) {
+        if (pre || simpleNode) {
           this.insert('>');
         } else {
-          simpleNode
-            ? this.insert(`>${node.children ? node.children[0].data.trim() : ''}`)
-            : this.insert('>\n');
+          this.insert('>\n');
+        }
+
+        const newIndent = indent + INDENTATION;
+
+        // Children
+        if (pre) {
+          for (let i = 0; i < node.children.length; ++i) {
+            this.parseUnformatted(node.children[i], newIndent);
+          }
+        } else if (node.children) {
+          for (let i = 0; i < node.children.length; ++i) {
+            this.parse(node.children[i], newIndent);
+          }
+        }
+
+        // End tag
+        if (pre) {
+          this.insert(`</${node.name}>\n`);
+        } else if (!voidElements[node.name]) {
+          this.insert(`</${node.name}>\n`, simpleNode ? 0 : indent);
+        } else {
+          this.insert(`\n`);
         }
         break;
       case 'text':
@@ -81,40 +114,16 @@ class Printer {
         } else if (/^\n\s*/.test(node.data)) {
           // Ignore end-of-line characters
         } else {
+          // const text = node.data.replace(/\s+/g, ' ').trim();
           const text = node.data.trim().replace(/(\n\s\s+)/g, ' ');
           if (text) {
-            this.insert(`${text}\n`, indent);
+            // console.log(JSON.stringify(text));
+            this.insert(text, indent);
           }
         }
         break;
       case 'comment':
         this.insert(`<!-- ${node.data.trim()} -->\n`, indent);
-        break;
-    }
-
-    if (pre) {
-      const newIndent = indent + INDENTATION;
-
-      for (let i = 0; i < node.children.length; ++i) {
-        this.parseUnformatted(node.children[i], newIndent);
-      }
-    } else if (!simpleNode && node.children) {
-      const newIndent = indent + INDENTATION;
-
-      for (let i = 0; i < node.children.length; ++i) {
-        this.parse(node.children[i], newIndent);
-      }
-    }
-
-    switch (node.type) {
-      case 'tag':
-        if (pre) {
-          this.insert(`</${node.name}>\n`);
-        } else if (voidElements.indexOf(node.name) === -1) {
-          this.insert(`</${node.name}>\n`, simpleNode ? 0 : indent);
-        } else {
-          this.insert(`\n`);
-        }
         break;
     }
   }

@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PoshHtml library works: files/a.html 1`] = `
-<div
-  class="flex flex-auto flex-column overflow-hidden"
-  style="height: 100%">
+<div class="flex flex-auto flex-column overflow-hidden" style="height: 100%">
 
   <!-- Lookup search header -->
   <header class="lookup-search-header bg-white flex flex-column px3">
@@ -33,10 +31,9 @@ exports[`PoshHtml library works: files/a.html 1`] = `
           ng-model="$ctrl.searchQuery"
           ng-attr-placeholder="{{ value.placeholder }}">
 
+
         <!-- Change this .network-search-input-button class to something more generic -->
-        <button
-          type="submit"
-          class="network-search-input-button">
+        <button type="submit" class="network-search-input-button">
           <i class="material-icons">search</i>
         </button>
       </form>
@@ -45,17 +42,14 @@ exports[`PoshHtml library works: files/a.html 1`] = `
   </header>
 
   <!-- Lookup view -->
-  <div
-    class="flex flex-auto"
-    ng-switch="$ctrl.pageState">
+  <div class="flex flex-auto" ng-switch="$ctrl.pageState">
 
     <!-- state === 'loading' -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-when="loading">
+    <div class="flex flex-center flex-auto" ng-switch-when="loading">
       <div class="col-4 mx-auto mb2">
         <div class="flex flex-column">
-          <round-spinner class="mx-auto mb1"></round-spinner>
+          <round-spinner class="mx-auto mb1">
+          </round-spinner>
           <span class="label-text primary block center mx-auto">
             Searching over Ravelin lookup...
           </span>
@@ -64,9 +58,7 @@ exports[`PoshHtml library works: files/a.html 1`] = `
     </div>
 
     <!-- state === 'empty' -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-when="empty">
+    <div class="flex flex-center flex-auto" ng-switch-when="empty">
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">
           No match containing “{{ ::$ctrl.searchQuery }}”
@@ -78,21 +70,18 @@ exports[`PoshHtml library works: files/a.html 1`] = `
     </div>
 
     <!-- state === 'data' -->
-    <div
-      class="flex flex-auto overflow-auto"
-      ng-switch-when="data">
+    <div class="flex flex-auto overflow-auto" ng-switch-when="data">
       <lookup-search-result
         class="mx-auto"
         type="::$ctrl.searchType"
         query="::$ctrl.searchQuery"
         has-chargebacks="$ctrl.result.hasChargebacks"
-        reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster"></lookup-search-result>
+        reviewed-as-fraudster="$ctrl.result.reviewedAsFraudster">
+      </lookup-search-result>
     </div>
 
     <!-- state === 'error' -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-when="error">
+    <div class="flex flex-center flex-auto" ng-switch-when="error">
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">
           Oops! Something went wrong.
@@ -104,9 +93,7 @@ exports[`PoshHtml library works: files/a.html 1`] = `
     </div>
 
     <!-- state === 'formaterror' -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-when="formaterror">
+    <div class="flex flex-center flex-auto" ng-switch-when="formaterror">
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">
           That number doesn't look right...
@@ -122,9 +109,7 @@ exports[`PoshHtml library works: files/a.html 1`] = `
     </div>
 
     <!-- state === undefined -->
-    <div
-      class="flex flex-center flex-auto"
-      ng-switch-default>
+    <div class="flex flex-center flex-auto" ng-switch-default>
       <div class="col-4 mx-auto mb2">
         <span class="heading-text primary block center mb1">Discover known fraudsters</span>
         <span class="description-text primary muted block center">
@@ -143,10 +128,9 @@ exports[`PoshHtml library works: files/b.html 1`] = `
 
     <h1 class="mb3">My Team</h1>
     <div class="col-12">
-      <div
-        class="flex flex-auto flex-center"
-        ng-if="vm.loading">
-        <round-spinner class="mx-auto my3"></round-spinner>
+      <div class="flex flex-auto flex-center" ng-if="vm.loading">
+        <round-spinner class="mx-auto my3">
+        </round-spinner>
       </div>
 
       <div
@@ -156,7 +140,8 @@ exports[`PoshHtml library works: files/b.html 1`] = `
           <h3 class="m0">
             Team members ({{ vm.users.length }})
           </h3>
-          <div class="flex-auto"></div>
+          <div class="flex-auto">
+          </div>
           <button
             ui-sref="settings.team.add"
             ff-show="admin"
@@ -170,9 +155,8 @@ exports[`PoshHtml library works: files/b.html 1`] = `
               <th>Name</th>
               <th>Role</th>
               <th>Two-Factor auth</th>
-              <th
-                class="legacy-data-table-edit-col"
-                ff-show="admin"></th>
+              <th class="legacy-data-table-edit-col" ff-show="admin">
+              </th>
             </tr>
           </thead>
           <tbody ng-repeat="user in vm.users">
@@ -188,11 +172,13 @@ exports[`PoshHtml library works: files/b.html 1`] = `
                 <material-icon
                   i="done"
                   class="ravelin-green"
-                  ng-if="user.twoFactorEnabled"></material-icon>
+                  ng-if="user.twoFactorEnabled">
+                </material-icon>
                 <material-icon
                   i="clear"
                   class="ravelin-red"
-                  ng-if="!user.twoFactorEnabled"></material-icon>
+                  ng-if="!user.twoFactorEnabled">
+                </material-icon>
               </td>
               <td ff-show="admin">
                 <button
@@ -224,17 +210,14 @@ exports[`PoshHtml library works: files/c.html 1`] = `
                 err-src="images/client-logo-default.svg"
                 alt="{{ $root.account.displayName || $root.currentClient.id }}"
                 style="cursor: pointer;">
+
             </div>
-            <h1
-              class="center m0 p0"
-              style="text-transform: capitalize;">
+            <h1 class="center m0 p0" style="text-transform: capitalize;">
               {{ $root.account.displayName || $root.currentClient.id }}
             </h1>
           </div>
 
-          <nav
-            id="settingsMenu"
-            class="settings-menu mx-auto">
+          <nav id="settingsMenu" class="settings-menu mx-auto">
             <div ng-if="$ctrl.apiKey">
               <div align="center">
                 <h2>
@@ -248,6 +231,7 @@ exports[`PoshHtml library works: files/c.html 1`] = `
                   type="{{ $ctrl.apiHidden ? "password" : "text" }}"
                   value="{{ $ctrl.apiKey }}"
                   class="block col-12 mb1 field">
+
                 <button
                   ng-click="$ctrl.apiHidden = !$ctrl.apiHidden"
                   class="btn col-12">
@@ -259,9 +243,7 @@ exports[`PoshHtml library works: files/c.html 1`] = `
                   tooltip
                   tooltip-side="right"
                   tooltip-title="{{ $ctrl.disabledKeyTooltip }}">
-                  <i
-                    ng-show="$ctrl.apiKeyDisabled"
-                    class="material-icons red">block</i>
+                  <i ng-show="$ctrl.apiKeyDisabled" class="material-icons red">block</i>
                 </span>
               </div>
             </div>
@@ -278,6 +260,7 @@ exports[`PoshHtml library works: files/c.html 1`] = `
                   type="{{ $ctrl.publishableHidden ? "password" : "text" }}"
                   value="{{ $ctrl.publishableKey }}"
                   class="block col-12 mb1 field">
+
                 <button
                   ng-click="$ctrl.publishableHidden = !$ctrl.publishableHidden"
                   class="btn col-12">
@@ -311,25 +294,25 @@ exports[`PoshHtml library works: files/d.html 1`] = `
   <!-- <![endif] -->
   <head>
     <meta charset="utf-8">
-    <meta
-      http-equiv="X-UA-Compatible"
-      content="IE=edge">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>Ravelin</title>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta
-      name="robots"
-      content="noindex,nofollow">
+
+    <meta name="robots" content="noindex,nofollow">
+
+
+    <link rel="stylesheet" href="styles/app.css?rev=0">
 
     <link
       rel="stylesheet"
-      href="styles/app.css?rev=0">
-    <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/color-brewer.min.css">
-    <!-- start Mixpanel -->
-    <!-- end Mixpanel -->
+
+    <!-- Google Analytics -->
+    <!-- End Google Analytics -->
 
   </head>
 
@@ -344,24 +327,21 @@ exports[`PoshHtml library works: files/d.html 1`] = `
     data-target=".scrollspy">
 
     <div class="page flex absolute top-0 right-0 bottom-0 left-0 overflow-hidden">
-      <div
-        class="flex flex-row"
-        ng-if="::$root.hasSession"
-        ng-cloak>
-        <navbar></navbar>
+      <div class="flex flex-row" ng-if="::$root.hasSession" ng-cloak>
+        <navbar>
+        </navbar>
       </div>
       <div class="flex flex-auto flex-column relative">
-        <top-nav
-          ng-if="::$root.hasSession"
-          ng-cloak></top-nav>
+        <top-nav ng-if="::$root.hasSession" ng-cloak>
+        </top-nav>
         <div
           ng-if="!$root.loadingPage"
           class="flex flex-auto overflow-auto"
-          ui-view></div>
-        <div
-          ng-if="$root.loadingPage"
-          class="flex flex-auto flex-center">
-          <round-spinner class="mx-auto"></round-spinner>
+          ui-view>
+        </div>
+        <div ng-if="$root.loadingPage" class="flex flex-auto flex-center">
+          <round-spinner class="mx-auto">
+          </round-spinner>
         </div>
       </div>
     </div>
